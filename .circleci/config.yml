@@ -78,11 +78,20 @@ jobs:
           name: Add python to bash path
           command: echo "export PATH=\"$PATH:/c/python27amd64/\"" >> $BASH_ENV
       - run:
+          working_directory: "~"
+          name: Rename
+          command: |
+            pwd
+            mv project "emsdk checkout"
+            ls -la "emsdk checkout"
+      - run:
           name: Install latest
+          working_directory: "~/emsdk checkout"
           shell: cmd.exe
           command: scripts\test.bat
       - run:
           name: test.py
+          working_directory: "~/emsdk checkout"
           command: |
             source emsdk_env.sh
             python scripts/test.py
